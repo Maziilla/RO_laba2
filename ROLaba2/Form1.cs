@@ -45,7 +45,7 @@ namespace ROLaba2
             return Math.Sqrt(Math.Pow((double)row.ItemArray[1] - row1[0], 2) + Math.Pow((double)row.ItemArray[2] - row1[1], 2) + Math.Pow((double)row.ItemArray[3] -
                 row1[2], 2) + Math.Pow((double)row.ItemArray[4] - row1[3], 2));
         }
-        public double Evkl_dist(DataRow row, DataRow row1)
+    public double Evkl_dist(DataRow row, DataRow row1)
         {
             return Math.Sqrt(Math.Pow((double)row.ItemArray[1] - (double)row1.ItemArray[1], 2) + Math.Pow((double)row.ItemArray[2] - (double)row1.ItemArray[2], 2) +
                 Math.Pow((double)row.ItemArray[3] - (double)row1.ItemArray[3], 2) + Math.Pow((double)row.ItemArray[4] - (double)row1.ItemArray[3], 2));
@@ -82,6 +82,13 @@ namespace ROLaba2
                     temp[i] = row2[i];
             }
             return temp;
+        }
+        public double min(double row1, double row2)
+        {           
+            if (row1 < row2)
+                return row1;
+            else
+                return row2;           
         }
         public int Max(double[] row)
         {
@@ -248,7 +255,25 @@ namespace ROLaba2
                         (double)Animals.Tables[0].Rows[max_index].ItemArray[4], (string)Animals.Tables[0].Rows[max_index].ItemArray[0]);
                 }
             } while(/*среднее расстояние между центрами*/max_el > sum / 2);
+            for (int i = 0; i < Animals.Tables[0].Rows.Count;i++)
+            {
+                double min_znach = Evkl_dist(Animals.Tables[0].Rows[i],Data.Tables[0].Rows[0]);
+                int index_min=0;                  
+                for(int j=1;j<Data.Tables.Count;j++)
+                {
+                    double new_rast = 0;
+                    new_rast = Evkl_dist(Animals.Tables[0].Rows[i], Data.Tables[j].Rows[0]);
+                    if(new_rast < min_znach)
+                    {
+                        min_znach = new_rast;
+                        index_min = j;
+                    }
+                    add_animal(Data.Tables[index_min], (double)Animals.Tables[0].Rows[i].ItemArray[1],
+                        (double)Animals.Tables[0].Rows[i].ItemArray[2], (double)Animals.Tables[0].Rows[i].ItemArray[3],
+                        (double)Animals.Tables[0].Rows[i].ItemArray[4], (string)Animals.Tables[0].Rows[i].ItemArray[0]);
+                }
 
+            }
             foreach (DataTable tabl in Data.Tables)
             {
                 lb_data.Items.Add(tabl.TableName);
