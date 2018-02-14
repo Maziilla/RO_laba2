@@ -183,7 +183,8 @@ namespace ROLaba2
             //    }
             //}
             //textReader.Close();
-            //-----------------------------------------------------------------------------------------
+            //-------------------------------------------------------конец простых
+            //-------------------МаксМин------------------------------------------------------------------------------
             textReader = new StreamReader("D:\\Универ\\РО\\RO_lab2\\dataset.txt");
             sLine = "";
             Animals.Tables.Add("1");
@@ -229,7 +230,7 @@ namespace ROLaba2
                 max_el = 0;
                 double[] temp_rast=null;
                 sum = 0;
-                int delitel = 1;
+                int delitel = 0;
                 for (int i = 0; i < Data.Tables.Count; i++)
                 {
                     for (int j = i + 1; j < Data.Tables.Count; j++)
@@ -284,8 +285,8 @@ namespace ROLaba2
                     lb_data.Items.Add("\t" + row[0] + " \t" + row[1] + " \t" + row[2] + " \t" + row[3] + " \t" + row[4]);
                 }
             }
-
-
+            //-------------------Конец_МаксМин------------------------------------------------------------------------------
+            
         }
     }
 }
