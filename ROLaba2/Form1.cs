@@ -48,7 +48,7 @@ namespace ROLaba2
     public double Evkl_dist(DataRow row, DataRow row1)
         {
             return Math.Sqrt(Math.Pow((double)row.ItemArray[1] - (double)row1.ItemArray[1], 2) + Math.Pow((double)row.ItemArray[2] - (double)row1.ItemArray[2], 2) +
-                Math.Pow((double)row.ItemArray[3] - (double)row1.ItemArray[3], 2) + Math.Pow((double)row.ItemArray[4] - (double)row1.ItemArray[3], 2));
+                Math.Pow((double)row.ItemArray[3] - (double)row1.ItemArray[3], 2) + Math.Pow((double)row.ItemArray[4] - (double)row1.ItemArray[4], 2));
         }
         public void add_col(DataTable table)
         {
@@ -114,7 +114,7 @@ namespace ROLaba2
             // double T = 0.0001;
 
             DataRow temp_row = null;
-            StreamReader textReader = new StreamReader("C:\\Users\\Mazilaa\\Downloads\\dataset.txt");
+            StreamReader textReader = new StreamReader("D:\\Универ\\РО\\RO_lab2\\dataset.txt");
             string sLine = "";
             string[] split;
             double[] znach = new double[4];
@@ -184,7 +184,7 @@ namespace ROLaba2
             //}
             //textReader.Close();
             //-----------------------------------------------------------------------------------------
-            textReader = new StreamReader("C:\\Users\\Mazilaa\\Downloads\\dataset.txt");
+            textReader = new StreamReader("D:\\Универ\\РО\\RO_lab2\\dataset.txt");
             sLine = "";
             Animals.Tables.Add("1");
             add_col(Animals.Tables[0]);
@@ -268,10 +268,12 @@ namespace ROLaba2
                         min_znach = new_rast;
                         index_min = j;
                     }
+                    
+                }
+                if (min_znach > 0.0)
                     add_animal(Data.Tables[index_min], (double)Animals.Tables[0].Rows[i].ItemArray[1],
                         (double)Animals.Tables[0].Rows[i].ItemArray[2], (double)Animals.Tables[0].Rows[i].ItemArray[3],
                         (double)Animals.Tables[0].Rows[i].ItemArray[4], (string)Animals.Tables[0].Rows[i].ItemArray[0]);
-                }
 
             }
             foreach (DataTable tabl in Data.Tables)
