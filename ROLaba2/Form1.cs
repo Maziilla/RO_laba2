@@ -15,7 +15,7 @@ namespace ROLaba2
     {
         
         DataSet Animals;
-        DataSet Data;        
+        DataSet Data;
         public string ToStr(double[] n)
         {
             string temp = n[0].ToString();
@@ -26,18 +26,9 @@ namespace ROLaba2
         public double[] toArr(DataTable table)
         {
             double[] temp = new double[4];
-            for(int i=0;i<4;i++)
-            {
-                temp[i] = (double)table.Rows[0].ItemArray[i+1];
-            }
-            return temp;
-        }
-        public double[] toArr(DataRow row)
-        {
-            double[] temp = new double[4];
             for (int i = 0; i < 4; i++)
             {
-                temp[i] = (double)row.ItemArray[i + 1];
+                temp[i] = (double)table.Rows[0].ItemArray[i + 1];
             }
             return temp;
         }
@@ -50,10 +41,10 @@ namespace ROLaba2
             return Math.Sqrt(Math.Pow((double)row.ItemArray[1] - row1[0], 2) + Math.Pow((double)row.ItemArray[2] - row1[1], 2) + Math.Pow((double)row.ItemArray[3] -
                 row1[2], 2) + Math.Pow((double)row.ItemArray[4] - row1[3], 2));
         }
-    public double Evkl_dist(DataRow row, DataRow row1)
+        public double Evkl_dist(DataRow row, DataRow row1)
         {
             return Math.Sqrt(Math.Pow((double)row.ItemArray[1] - (double)row1.ItemArray[1], 2) + Math.Pow((double)row.ItemArray[2] - (double)row1.ItemArray[2], 2) +
-                Math.Pow((double)row.ItemArray[3] - (double)row1.ItemArray[3], 2) + Math.Pow((double)row.ItemArray[4] - (double)row1.ItemArray[3], 2));
+                Math.Pow((double)row.ItemArray[3] - (double)row1.ItemArray[3], 2) + Math.Pow((double)row.ItemArray[4] - (double)row1.ItemArray[4], 2));
         }
         public void add_col(DataTable table)
         {
@@ -64,22 +55,22 @@ namespace ROLaba2
             table.Columns.Add("petal length", typeof(double));
             table.Columns.Add("petal width", typeof(double));
         }
-        
+
         public double[] all_dist(double[] row, DataTable tabl)
         {
-            List<double> res=new List<double>();
-            foreach(DataRow t_row in tabl.Rows)
+            List<double> res = new List<double>();
+            foreach (DataRow t_row in tabl.Rows)
             {
                 res.Add(Math.Sqrt(Math.Pow((double)t_row.ItemArray[1] - row[0], 2) + Math.Pow((double)t_row.ItemArray[2] - row[1], 2) + Math.Pow((double)t_row.ItemArray[3] -
                 row[2], 2) + Math.Pow((double)t_row.ItemArray[4] - row[3], 2)));
             }
-            return res.ToArray();            
+            return res.ToArray();
         }
-      
+
         public double[] min(double[] row1, double[] row2)
         {
-            double[] temp=new double [row1.Length];
-            for(int i=0;i<row1.Length;i++)
+            double[] temp = new double[row1.Length];
+            for (int i = 0; i < row1.Length; i++)
             {
                 if (row1[i] < row2[i])
                     temp[i] = row1[i];
@@ -89,19 +80,19 @@ namespace ROLaba2
             return temp;
         }
         public double min(double row1, double row2)
-        {           
+        {
             if (row1 < row2)
                 return row1;
             else
-                return row2;           
+                return row2;
         }
         public int Max(double[] row)
         {
             int max = 0;
             double max_val = row[0];
-            for(int i=1;i<row.Length;i++)
+            for (int i = 1; i < row.Length; i++)
             {
-                if(row[i]>max_val)
+                if (row[i] > max_val)
                 {
                     max = i;
                     max_val = row[i];
@@ -125,7 +116,8 @@ namespace ROLaba2
                         index_min = j;
                     }                    
                 }
-                add_animal(Data.Tables[index_min], (double)Animals.Tables[0].Rows[i].ItemArray[1],
+                if (min_znach > 0.0)
+                    add_animal(Data.Tables[index_min], (double)Animals.Tables[0].Rows[i].ItemArray[1],
                         (double)Animals.Tables[0].Rows[i].ItemArray[2], (double)Animals.Tables[0].Rows[i].ItemArray[3],
                         (double)Animals.Tables[0].Rows[i].ItemArray[4], (string)Animals.Tables[0].Rows[i].ItemArray[0]);
 
@@ -168,6 +160,15 @@ namespace ROLaba2
                     lb_data.Items.Add("\t" + row[0] + " \t" + row[1] + " \t" + row[2] + " \t" + row[3] + " \t" + row[4]);
                 }
             }
+        }
+        public double[] toArr(DataRow row)
+        {
+            double[] temp = new double[4];
+            for (int i = 0; i < 4; i++)
+            {
+                temp[i] = (double)row.ItemArray[i + 1];
+            }
+            return temp;
         }
         //table.Rows.Add(nUD_pol.Value, nUD_hight.Value, nUD_long.Value);
         public Form1()
@@ -316,7 +317,7 @@ namespace ROLaba2
                     max_el = 0;
                     double[] temp_rast = null;
                     sum = 0;
-                    int delitel = 1;
+                    int delitel = 0;
                     for (int i = 0; i < Data.Tables.Count; i++)
                     {
                         for (int j = i + 1; j < Data.Tables.Count; j++)
